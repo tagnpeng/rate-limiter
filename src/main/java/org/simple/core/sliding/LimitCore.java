@@ -41,11 +41,11 @@ public class LimitCore {
         //清空窗口值
         this.clearTimeSlices(windowIndex, (windowIndex + limitRule.getTimeSliceSize() - limitRule.getWindowSize()) % limitRule.getTimeSliceSize());
         if (num > limitRule.getThreshold()) {
-            System.out.println("false index:" + windowIndex + " num:" + num);
+//            System.out.println("false index:" + windowIndex + " num:" + num);
             return false;
         }
 
-        System.out.println("true index:" + windowIndex + " num:" + num);
+//        System.out.println("true index:" + windowIndex + " num:" + num);
 
         //当前窗口数量+1
         timeSlices[windowIndex].incrementAndGet();
@@ -68,8 +68,7 @@ public class LimitCore {
         for (int i = (currentIndex + 1) % limitRule.getTimeSliceSize();
              i != endValue;
              i = (i + 1) % limitRule.getTimeSliceSize()) {
-            timeSlices[i].addAndGet(0);
+            timeSlices[i].updateAndGet((o) -> 0);
         }
     }
-
 }
